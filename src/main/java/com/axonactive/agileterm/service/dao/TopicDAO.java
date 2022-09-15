@@ -10,7 +10,6 @@ public interface TopicDAO {
 
     TopicEntity save(Topic topic);
 
-    void flush();
 
     TopicEntity findById(Integer topicId);
 

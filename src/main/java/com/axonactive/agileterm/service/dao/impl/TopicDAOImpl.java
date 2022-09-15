@@ -18,7 +18,7 @@ public class TopicDAOImpl implements TopicDAO {
 
     @Override
     public List<TopicEntity> findAll() {
-        Query allTopicQuery = em.createQuery("SELECT t FROM Topic t", TopicEntity.class);
+        Query allTopicQuery = em.createQuery("SELECT t FROM TopicEntity t", TopicEntity.class);
         return allTopicQuery.getResultList();
     }
 
@@ -31,16 +31,9 @@ public class TopicDAOImpl implements TopicDAO {
         return topicEntity;
     }
 
-
-    @Override
-    public void flush() {
-        this.em.flush();
-    }
-
-
     @Override
     public TopicEntity findById(Integer topicId) {
-        return em.createQuery("SELECT t FROM Topic t WHERE t.id = :topicId", TopicEntity.class)
+        return em.createQuery("SELECT t FROM TopicEntity t WHERE t.id = :topicId", TopicEntity.class)
                 .setParameter("topicId", topicId).getSingleResult();
     }
 
