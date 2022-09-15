@@ -38,7 +38,7 @@ public class TopicResource {
     @Path("{TopicId}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response findById(@PathParam("TopicId") Integer topicId) {
-        return Response.ok(topicMapper.toDto(topicService.findById(topicId))).build();
+        return Response.ok(topicMapper.toDto(topicService.findTopicById(topicId))).build();
     }
 
 
