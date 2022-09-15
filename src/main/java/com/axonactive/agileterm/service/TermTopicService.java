@@ -14,24 +14,23 @@ public class TermTopicService {
     @Inject
     TermTopicDAO termTopicDAO;
 
-    public List<TermTopicEntity> findTopicByTermName(String name){
-//        return termTopicDAO.findTopicByTermName(name);
-        return null;
+    public List<TopicEntity> findTopicByTermName(String name){
+        return termTopicDAO.findTopicByTermName(name);
     }
 
     public List<TermEntity> findTermByTopicName(String name) {
-        return null;
+        return termTopicDAO.findTermByTopicName(name);
     }
 
     public List<TopicEntity> findTopicByTermId(Integer id) {
-        return null;
+        return termTopicDAO.findTopicByTermId(id);
     }
 
     public List<TermEntity> findTermByTopicId(Integer id) {
-        return null;
+        return termTopicDAO.findTermByTopicId(id);
     }
 
-    public TermEntity findTermByTermId(Integer Id) {
-        return null;
+    public TermEntity findTermByTermId(Integer id) {
+        return termTopicDAO.findTermByTermId(id);
     }
 }

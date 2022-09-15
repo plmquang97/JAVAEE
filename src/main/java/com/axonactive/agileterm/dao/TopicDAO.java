@@ -1,4 +1,4 @@
-package com.axonactive.agileterm.service.dao;
+package com.axonactive.agileterm.dao;
 
 import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.rest.client.model.Topic;
