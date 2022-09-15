@@ -5,6 +5,7 @@ import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
 import com.axonactive.agileterm.service.mapper.TermMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
+@Slf4j
 @Stateless
 @Path(TermResource.PATH)
 public class TermResource {
@@ -33,14 +34,14 @@ public class TermResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
+        log.error("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         return Response.ok(termMapper.toDtos(termService.getAll())).build();
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response findTermById(@PathParam(value = "id") Integer id) {
-        return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
+    public Response findTermById(@PathParam(value = "id") Integer id) {return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
     }
 
 

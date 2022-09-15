@@ -34,7 +34,7 @@ public class TermService {
     public TermEntity findTermByTermId(Integer id) {
         TermEntity termEntity = termDAO.findTermById(id);
         if (termEntity == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("");
         }
         return termEntity;
     }
