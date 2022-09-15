@@ -1,5 +1,7 @@
 package com.axonactive.agileterm.service;
 
+import com.axonactive.agileterm.entity.TopicEntity;
+import com.axonactive.agileterm.rest.client.model.Topic;
 import com.axonactive.agileterm.rest.model.TopicDto;
 import com.axonactive.agileterm.service.dao.TopicDAO;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
@@ -17,11 +19,17 @@ public class TopicService {
     @Inject
     private TopicMapper topicMapper;
 
-    public List<TopicDto> getAll() {
-        return topicMapper.toDtos(topicDAO.findAll());
+    public List<TopicEntity> getAll() {
+        return topicDAO.findAll();
     }
 
-    public TopicDto findById(Integer topicId) {
-        return topicMapper.toDto(topicDAO.findById(topicId));
+    public TopicEntity findById(Integer topicId) {
+        return topicDAO.findById(topicId);
     }
+
+    public TopicEntity save(Topic topicInput) {
+        return topicDAO.save(topicInput);
+    }
+
+
 }
