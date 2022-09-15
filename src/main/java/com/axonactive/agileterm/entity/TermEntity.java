@@ -29,7 +29,6 @@ public class TermEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
-//    @OrderBy("votePoint DESC, createDate DESC")
     private List<DescriptionEntity> descriptionEntityList;
 
 }
