@@ -44,12 +44,9 @@ class TermTopicServiceTest {
     TopicEntity topicProcess = new TopicEntity(3, "Scrum", "#ffcb00");
 
     List<TermEntity> terms = new ArrayList<>();
-    Term newTermDOD = Term.builder()
-            .name("DOD")
-            .build();
-    Term newTermDailyScrum = Term.builder()
-            .name("Daily Scrum")
-            .build();
+
+    TermEntity newTermDOD = new TermEntity(1, "Dod", new ArrayList<>());
+    TermEntity newTermDailyScrum =
 
 
     @BeforeEach
