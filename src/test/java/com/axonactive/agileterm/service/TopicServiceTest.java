@@ -1,9 +1,9 @@
 package com.axonactive.agileterm.service;
 
+import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Topic;
-import com.axonactive.agileterm.service.dao.TopicDAO;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ public class TopicServiceTest {
     @Test
     void testGetAll_shouldReturnData_whenUsed() {
         when(topicDAO.findAll()).thenReturn(topics);
-        //test this method will give actual result
+
         List<TopicEntity> actualTopics = topicService.getAll();
 
         assertEquals(topics.size(), actualTopics.size());
@@ -72,7 +72,7 @@ public class TopicServiceTest {
 
     @Test
     void testSave_sizeShouldIncrease_whenSaveNewRequest() {
-        TopicEntity topic3 = new TopicEntity(1, "Clean code", "#112233");
+        TopicEntity topic3 = new TopicEntity(3, "Clean code", "#112233");
         Topic topicRequest3 = new Topic("Clean code", "#112233");
         when(topicDAO.save(topicRequest3)).thenReturn(topic3);
 

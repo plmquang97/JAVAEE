@@ -3,7 +3,7 @@ package com.axonactive.agileterm.service;
 import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Topic;
-import com.axonactive.agileterm.service.dao.TopicDAO;
+import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
 
 import javax.ejb.Stateless;
@@ -15,9 +15,6 @@ public class TopicService {
 
     @Inject
     private TopicDAO topicDAO;
-
-    @Inject
-    private TopicMapper topicMapper;
 
     public List<TopicEntity> getAll() {
         return topicDAO.findAll();
