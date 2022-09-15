@@ -4,6 +4,7 @@ import com.axonactive.agileterm.dao.TermTopicDAO;
 import com.axonactive.agileterm.entity.TermEntity;
 import com.axonactive.agileterm.entity.TermTopicEntity;
 import com.axonactive.agileterm.entity.TopicEntity;
+import com.axonactive.agileterm.rest.client.model.TermTopic;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -32,5 +33,9 @@ public class TermTopicService {
 
     public TermEntity findTermByTermId(Integer id) {
         return termTopicDAO.findTermByTermId(id);
+    }
+
+    public TermTopicEntity save(TermTopic input){
+        return termTopicDAO.save(input);
     }
 }

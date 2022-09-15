@@ -3,6 +3,7 @@ package com.axonactive.agileterm.dao;
 import com.axonactive.agileterm.entity.TermEntity;
 import com.axonactive.agileterm.entity.TermTopicEntity;
 import com.axonactive.agileterm.entity.TopicEntity;
+import com.axonactive.agileterm.rest.client.model.TermTopic;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -18,4 +19,6 @@ public interface TermTopicDAO {
     List<TermEntity> findTermByTopicId(Integer id);
 
     TermEntity findTermByTermId(Integer Id);
+
+    TermTopicEntity save(TermTopic termTopic);
 }

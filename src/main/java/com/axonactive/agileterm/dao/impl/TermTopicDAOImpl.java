@@ -2,9 +2,12 @@ package com.axonactive.agileterm.dao.impl;
 
 import com.axonactive.agileterm.dao.TermTopicDAO;
 import com.axonactive.agileterm.entity.TermEntity;
+import com.axonactive.agileterm.entity.TermTopicEntity;
 import com.axonactive.agileterm.entity.TopicEntity;
+import com.axonactive.agileterm.rest.client.model.TermTopic;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.List;
 public class TermTopicDAOImpl implements TermTopicDAO {
     @PersistenceContext(name = "agileterm")
     EntityManager em;
+    @Inject
+    TermTopicDAO termTopicDAO;
 
     @Override
     public List<TopicEntity> findTopicByTermName(String name) {
@@ -37,5 +42,10 @@ public class TermTopicDAOImpl implements TermTopicDAO {
     @Override
     public TermEntity findTermByTermId(Integer id) {
         return em.createQuery("SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d WHERE t.id = :id", TermEntity.class).setParameter("id", id).getSingleResult();
+    }
+
+    @Override
+    public TermTopicEntity save(TermTopic termTopic) {
+        return termTopicDAO.save(termTopic);
     }
 }
