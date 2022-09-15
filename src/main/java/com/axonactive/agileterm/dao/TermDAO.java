@@ -10,7 +10,9 @@ import java.util.List;
 @Stateless
 public interface TermDAO {
     List<TermEntity> getAll();
+
     TermEntity findTermById(Integer id);
-    TermEntity save (TermEntity termEntity);
+
+    TermEntity save(TermEntity termEntity);
 
 }

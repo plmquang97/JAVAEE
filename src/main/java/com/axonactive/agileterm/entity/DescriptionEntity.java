@@ -25,7 +25,6 @@ public class DescriptionEntity {
     @Column(length = 1000)
     private String content;
 
-    @NotNull
     private LocalDate createDate = LocalDate.now();
 
     @JoinColumn(name = "term_id")
