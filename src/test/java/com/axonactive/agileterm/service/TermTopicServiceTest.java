@@ -2,6 +2,8 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.dao.impl.TermTopicDAOImpl;
+import com.axonactive.agileterm.entity.TermEntity;
+import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.entity.UserEntity;
 import com.axonactive.agileterm.rest.client.model.Description;
 import com.axonactive.agileterm.rest.client.model.Term;
@@ -13,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,23 +38,28 @@ class TermTopicServiceTest {
     @Mock
     private TermTopicDAOImpl termTopicDAOImpl;
 
+    List<TopicEntity> topics = new ArrayList<>();
+    TopicEntity topicAgile = new TopicEntity(1, "Agile", "#000000");
+    TopicEntity topicScrum = new TopicEntity(2, "Scrum", "#ffffff");
+    TopicEntity topicProcess = new TopicEntity(3, "Scrum", "#ffcb00");
+
+    List<TermEntity> terms = new ArrayList<>();
+    Term newTermDOD = Term.builder()
+            .name("DOD")
+            .build();
+    Term newTermDailyScrum = Term.builder()
+            .name("Daily Scrum")
+            .build();
+
+
     @BeforeEach
     void setup(){
-        Term newTermDOD = Term.builder()
-                .name("DOD")
-                .build();
-        termService.save(newTermDOD);
-        Term newTerm1 = Term.builder()
-                .name("Daily Scrum")
-                .build();
-        termService.save(newTerm1);
+        topics.add(topicAgile);
+        topics.add(topicScrum);
+        topics.add(topicProcess);
 
-        topicService.save(new Topic("Agile", "#ffffff"));
-        topicService.save(new Topic("Scrum", "#000000"));
-        topicService.save(new Topic("Process", "#ffcb00"));
-
-        System.out.println(topicService.findById(1));
-
+        terms.add(newTermDOD);
+        terms.add(newTermDailyScrum);
 
         termTopicDAOService.save(new TermTopic(1, 1));
         termTopicDAOService.save(new TermTopic(1, 2));
@@ -87,7 +97,7 @@ class TermTopicServiceTest {
     @Test
     void testFindTermByTopicId_shouldReturn1_whenInput1AndCheckSize() {
 //        assertEquals(1, termTopicDAOService.findTermByTopicId(1).size());
-        System.out.println(topicService.findById(1));
+//        System.out.println(topicService.findById(1));
     }
 
     @Test
