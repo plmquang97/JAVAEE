@@ -23,7 +23,7 @@ public class TermDAOImpl implements TermDAO {
 
     @Override
     public TermEntity findTermById(Integer id) {
-        return  em.createQuery(
+        return em.createQuery(
                 "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d WHERE t.id = :id",TermEntity.class)
                 .setParameter("id",id)
                 .getSingleResult();
