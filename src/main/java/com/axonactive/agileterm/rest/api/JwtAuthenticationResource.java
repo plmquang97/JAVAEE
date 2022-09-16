@@ -1,8 +1,9 @@
 package com.axonactive.agileterm.rest.api;
 
-import antlr.Token;
+
 import com.axonactive.agileterm.entity.UserEntity;
 import com.axonactive.agileterm.rest.client.model.JwtRequest;
+import com.axonactive.agileterm.rest.model.Token;
 import com.axonactive.agileterm.utility.JwtUtils;
 
 import javax.ejb.Stateless;

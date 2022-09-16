@@ -13,7 +13,6 @@ public interface UserDAO {
 
     Long countUsersWithUsername(String username);
 
-    UserEntity findByUserName(String userName);
 
     List<UserEntity> getAll();
 

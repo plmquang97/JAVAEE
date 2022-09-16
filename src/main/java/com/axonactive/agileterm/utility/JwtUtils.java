@@ -1,11 +1,11 @@
 package com.axonactive.agileterm.utility;
 
-import antlr.Token;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.axonactive.agileterm.entity.UserEntity;
 import com.axonactive.agileterm.rest.client.model.JwtRequest;
+import com.axonactive.agileterm.rest.model.Token;
 import com.axonactive.agileterm.service.AuthenticationService;
 
 import javax.ejb.EJB;
@@ -50,6 +50,6 @@ public class JwtUtils {
                 //may need to add custom exception
                 throw new Exception("cant generate token");
             }
-            return new Token(timeToLive, token);
+            return new Token(token,timeToLive);
         }
     }

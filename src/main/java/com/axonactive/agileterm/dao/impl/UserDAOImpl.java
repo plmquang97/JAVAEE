@@ -17,9 +17,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserEntity findUserByUserName(String username) {
-        return em.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username",UserEntity.class)
-                .setParameter("userName",username)
-                .getSingleResult();
+        List<UserEntity> userEntityList = em.createQuery(
+                "SELECT u FROM UserEntity u WHERE u.username = :username", UserEntity.class)
+                .setParameter("username",username)
+                .getResultList();
+        if(!userEntityList.isEmpty()){
+            return userEntityList.get(0);
+        }
+        return null;
     }
 
     @Override
@@ -37,14 +42,6 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("username", username)
                 .getSingleResult();
 
-    }
-
-    @Override
-    public UserEntity findByUserName(String userName) {
-        return em.createQuery(
-                "SELECT DISTINCT u FROM UserEntity u WHERE u.username = :username", UserEntity.class)
-                .setParameter("username", userName)
-                .getSingleResult();
     }
 
 
