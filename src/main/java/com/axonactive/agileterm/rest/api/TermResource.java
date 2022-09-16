@@ -74,27 +74,20 @@ public class TermResource {
     }
 
 
-// most important method
-//    @GET
-//    @Path("{encodedTermId}/details")
-//
-//    public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
-//        return Response.ok(termService.findTermDetailById(encodedId));
-//    }
+    @GET
+    @Path("{encodedTermId}/details")
+    public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
+        return Response.ok(termService.findTermDetailById(encodedId)).build();
+    }
 
     @POST
     @Path("/upload-file")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces({MediaType.APPLICATION_JSON})
     public Response uploadTermWithExcelFile(MultipartFormDataInput excelFile) throws IOException {
-        System.out.println("You got to api");
         return Response.ok(termService.uploadTermAndDescriptionExcelFile(excelFile)).build();
     }
-    //DTO?
-//    @PostMapping("existed-validate")
-//    public ResponseEntity<Void> termExistValidate(@RequestBody TermName userInput) {
-//        termService.validateNewTermName(userInput.getName());
-//        return ResponseEntity.noContent().build();
-//    }
+
+
 
 }

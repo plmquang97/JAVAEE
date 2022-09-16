@@ -9,15 +9,14 @@ import com.axonactive.agileterm.exception.InputValidationException;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.ResponseForUploadFile;
-import com.axonactive.agileterm.service.dto.TermImportDto;
 import com.axonactive.agileterm.service.dto.RowResultDto;
+import com.axonactive.agileterm.service.dto.TermImportDto;
 import com.axonactive.agileterm.utility.ExcelUtils;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -238,4 +237,10 @@ public class TermService {
         return rawDataList != null && !rawDataList.isEmpty() ?
                 rawDataList.get(rawDataList.size() - 1).getRowIndex() : 1;
     }
+
+    public TermEntity findTermDetailById(String encodedId) {
+        return findTermByTermId(getDecodedId(encodedId));
+    }
+
+
 }
