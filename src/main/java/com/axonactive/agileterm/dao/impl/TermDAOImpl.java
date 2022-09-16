@@ -30,7 +30,6 @@ public class TermDAOImpl implements TermDAO {
                 "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d WHERE t.id = :id",TermEntity.class)
                 .setParameter("id",id)
                 .getSingleResult();
-
     }
 
     @Override

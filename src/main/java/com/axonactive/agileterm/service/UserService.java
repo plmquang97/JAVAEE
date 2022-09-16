@@ -26,10 +26,6 @@ public class UserService {
         return userDAO.countUsersWithEmail(email);
     }
 
-    public UserEntity findByUserName(String userName){
-        return userDAO.findByUserName(userName);
-    }
-
     public UserEntity findUserEntityByUserName(String username){
         UserEntity userEntity = userDAO.findUserByUserName(username);
         if (userEntity == null){

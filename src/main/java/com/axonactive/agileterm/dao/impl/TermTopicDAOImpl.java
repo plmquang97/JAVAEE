@@ -8,6 +8,9 @@ import com.axonactive.agileterm.rest.client.model.TermTopic;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import com.axonactive.agileterm.entity.TopicEntity;
+
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

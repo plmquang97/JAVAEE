@@ -44,8 +44,6 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-
-
     @Override
     public List<UserEntity> getAll() {
         return em.createQuery(
