@@ -5,18 +5,24 @@ import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
 import com.axonactive.agileterm.service.mapper.TermMapper;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.bind.annotation.JsonbDateFormat;
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 
 @Stateless
 @Path(TermResource.PATH)
+@MultipartConfig(fileSizeThreshold=1024*1024*10, // 10MB
+        maxRequestSize=1024*1024*10)// 10MB
 public class TermResource {
     public static final String PATH = "/terms";
 
@@ -39,6 +45,7 @@ public class TermResource {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
+    @JsonbDateFormat
     public Response findTermById(@PathParam(value = "id") Integer id) {
         return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
     }
@@ -67,25 +74,20 @@ public class TermResource {
     }
 
 
-// most important method
-//    @GET
-//    @Path("{encodedTermId}/details")
-//
-//    public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
-//        return Response.ok(termService.findTermDetailById(encodedId));
-//    }
+    @GET
+    @Path("{encodedTermId}/details")
+    public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
+        return Response.ok(termService.findTermDetailById(encodedId)).build();
+    }
+
+    @POST
+    @Path("/upload-file")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response uploadTermWithExcelFile(MultipartFormDataInput excelFile) throws IOException {
+        return Response.ok(termService.uploadTermAndDescriptionExcelFile(excelFile)).build();
+    }
 
 
-    //multipartFIle??
-//    @PostMapping(value = "/upload-file", consumes = "multipart/form-data")
-//    public ResponseEntity<ResponseForUploadFile> uploadTermWithExcelFile(@RequestParam("file") MultipartFile file) throws IOException {
-//        return ResponseEntity.ok(termService.uploadTermAndDescriptionExcelFile(file));
-//    }
-    //DTO?
-//    @PostMapping("existed-validate")
-//    public ResponseEntity<Void> termExistValidate(@RequestBody TermName userInput) {
-//        termService.validateNewTermName(userInput.getName());
-//        return ResponseEntity.noContent().build();
-//    }
 
 }

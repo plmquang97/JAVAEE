@@ -3,6 +3,8 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
+import com.axonactive.agileterm.exception.ErrorMessage;
+import com.axonactive.agileterm.exception.ResourceNotFoundException;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,17 +16,17 @@ public class AuthenticationService {
 
     public void checkAuthentication(String username, String password) throws Exception {
 
-       if(userService.findUserEntityByUserName(username) == null){
+        UserEntity user = userService.findUserEntityByUserName(username);
+
+        if (userService.findUserEntityByUserName(username) == null) {
             //may add customException later
-            throw new Exception("no such username");
+            throw new ResourceNotFoundException(ErrorMessage.USER_NOT_FOUND);
         }
-            UserEntity user = userService.findUserEntityByUserName(username);
-
-            if(!user.getPassword().equals(password)){
-                //may add customException later
-                throw new Exception("incorrect password");
-            }
-            else return;}
-
+        if (!user.getPassword().equals(password)) {
+            //may add customException later
+            throw new ResourceNotFoundException(ErrorMessage.USER_NOT_FOUND);
+        } else return;
     }
+
+}
 

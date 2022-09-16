@@ -1,45 +1,30 @@
 package com.axonactive.agileterm.dao.impl;
 
 import com.axonactive.agileterm.dao.DescriptionDAO;
-import com.axonactive.agileterm.dao.TermDAO;
-import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.DescriptionEntity;
-import com.axonactive.agileterm.entity.TermEntity;
-import com.axonactive.agileterm.entity.UserEntity;
-import com.axonactive.agileterm.rest.client.model.Description;
-import com.axonactive.agileterm.rest.client.model.Term;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class DescriptionDAOImpl implements DescriptionDAO {
-
     @PersistenceContext(name = "agileterm")
     EntityManager em;
 
-    @Inject
-    DescriptionDAO descriptionDAO;
-
-    @Inject
-    TermDAO termDAO;
-
-    @Inject
-    UserDAO userDAO;
-
     @Override
-    public DescriptionEntity save(Integer termId, Description descriptionInput) {
-        DescriptionEntity descriptionEntity = new DescriptionEntity();
-
-        TermEntity term = termDAO.findTermById(termId);
-        UserEntity user = userDAO.findByUserName(descriptionInput.getUserName());
-
-        descriptionEntity.setContent(descriptionInput.getContent());
-        descriptionEntity.setTerm(term);
-        descriptionEntity.setUserEntity(user);
-
+    public DescriptionEntity save(DescriptionEntity descriptionEntity) {
         return this.em.merge(descriptionEntity);
     }
+
+    @Override
+    public List<DescriptionEntity> findDescriptionByTermIdAndDescriptionString(String termName, String descriptionString) {
+        return em.createQuery("SELECT d FROM DescriptionEntity d LEFT JOIN FETCH d.userEntity u WHERE LOWER(d.term.name) = LOWER(:termName) AND LOWER(d.content) = LOWER(:descriptionString)")
+                .setParameter("termName",termName)
+                .setParameter("descriptionString",descriptionString)
+                .getResultList();
+    }
+
+
 }
