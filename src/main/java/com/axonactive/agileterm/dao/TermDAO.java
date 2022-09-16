@@ -13,4 +13,6 @@ public interface TermDAO {
 
     TermEntity save(TermEntity termEntity);
 
+    TermEntity findTermByTermName(String name);
+
 }

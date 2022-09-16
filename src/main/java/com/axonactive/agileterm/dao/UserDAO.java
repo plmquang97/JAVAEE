@@ -17,5 +17,5 @@ public interface UserDAO {
     List<UserEntity> getAll();
 
     UserEntity findUserByUserName(String userName);
-    UserEntity save(UserEntity userInput);
+    UserEntity save(UserEntity userEntity);
 }

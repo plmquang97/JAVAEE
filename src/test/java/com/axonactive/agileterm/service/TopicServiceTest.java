@@ -2,6 +2,7 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.entity.TopicEntity;
+import com.axonactive.agileterm.exception.ErrorMessage;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Topic;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
@@ -62,7 +63,7 @@ public class TopicServiceTest {
 
     @Test
     void testFindById_shouldThrowResourceNotFoundException_whenInput3() {
-        when(topicDAO.findById(100)).thenThrow(new ResourceNotFoundException());
+        when(topicDAO.findById(100)).thenThrow(new ResourceNotFoundException(ErrorMessage.TOPIC_NOT_FOUND));
 
         assertThrows(ResourceNotFoundException.class, () -> {
             topicService.findTopicById(100);

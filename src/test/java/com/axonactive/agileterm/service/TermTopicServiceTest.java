@@ -73,9 +73,9 @@ class TermTopicServiceTest {
         userEntity2.setPassword("Aavn123!@#");
         userDAO.save(userEntity2);
 
-        descriptionService.save(1, new Description("A set of conditions that software must meet in order to be accepted by a customer or stakeholder", "Huy"));
-
-        descriptionService.save(1, new Description("A set of conditions that software must meet in order to be accepted by a customer or stakeholder", "Huy"));
+//        descriptionService.save(1, new Description("A set of conditions that software must meet in order to be accepted by a customer or stakeholder", "Huy"));
+//
+//        descriptionService.save(1, new Description("A set of conditions that software must meet in order to be accepted by a customer or stakeholder", "Huy"));
     }
 
     @Test
