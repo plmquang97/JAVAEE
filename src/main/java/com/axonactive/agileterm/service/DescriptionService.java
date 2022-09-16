@@ -1,6 +1,7 @@
 package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.DescriptionDAO;
+import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.DescriptionEntity;
 import com.axonactive.agileterm.rest.client.model.Description;
 

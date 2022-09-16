@@ -14,11 +14,11 @@ public class AuthenticationService {
 
     public void checkAuthentication(String username, String password) throws Exception {
 
-       if(userService.findByUserName(username) == null){
+       if(userService.findUserEntityByUserName(username) == null){
             //may add customException later
             throw new Exception("no such username");
         }
-            UserEntity user = userService.findByUserName(username);
+            UserEntity user = userService.findUserEntityByUserName(username);
 
             if(!user.getPassword().equals(password)){
                 //may add customException later
