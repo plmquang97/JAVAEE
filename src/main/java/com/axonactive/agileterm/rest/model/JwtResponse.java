@@ -1,4 +1,4 @@
-package com.axonactive.agileterm.rest.client.model;
+package com.axonactive.agileterm.rest.model;
 
 import antlr.Token;
 import lombok.AllArgsConstructor;

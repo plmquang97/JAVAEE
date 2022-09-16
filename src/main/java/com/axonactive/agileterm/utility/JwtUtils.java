@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.axonactive.agileterm.entity.UserEntity;
+import com.axonactive.agileterm.rest.client.model.JwtRequest;
 import com.axonactive.agileterm.service.AuthenticationService;
 
 import javax.ejb.EJB;
@@ -20,9 +21,9 @@ public class JwtUtils {
     @Inject
     private AuthenticationService authenticationService;
 
-    public Token generateJwtToken(UserEntity user) throws Exception{
+    public Token generateJwtToken(JwtRequest jwtRequest) throws Exception{
 
-            authenticationService.checkAuthentication(user.getUsername(), user.getPassword());
+            authenticationService.checkAuthentication(jwtRequest.getUsername(), jwtRequest.getPassword());
 
             String token = null;
             String secretKey = "agileterm";
@@ -35,7 +36,7 @@ public class JwtUtils {
                 token = JWT.create()
                         .withIssuedAt(new Date())
                         .withJWTId(UUID.randomUUID().toString())
-                        .withClaim("username", user.getUsername())
+                        .withClaim("username", jwtRequest.getUsername())
                         .withExpiresAt(new Date(System.currentTimeMillis() + timeToLive))
                         .sign(algorithm);
 
