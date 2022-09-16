@@ -1,5 +1,6 @@
 package com.axonactive.agileterm.service;
 
+import com.axonactive.agileterm.dao.DescriptionDAO;
 import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.DescriptionEntity;
 import com.axonactive.agileterm.rest.client.model.Description;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Stateless
 public class DescriptionService {
+    @Inject
+    private DescriptionDAO descriptionDAO;
     @Inject
     private UserService userService;
 
@@ -37,5 +40,17 @@ public class DescriptionService {
     }
 
 
+    public List<DescriptionEntity> saveAll(List<DescriptionEntity> descriptionList) {
+        List<DescriptionEntity> descriptionEntityList = new ArrayList<>();
+        for (DescriptionEntity descriptionEntity: descriptionList
+             ) {
+            descriptionEntityList.add(descriptionDAO.save(descriptionEntity));
+        }
+        return descriptionEntityList;
+    }
+
+    public List<DescriptionEntity> findDescriptionByTermNameAndDescriptionString(String termName, String descriptionString) {
+        return descriptionDAO.findDescriptionByTermIdAndDescriptionString(termName,descriptionString);
+    }
 }
 

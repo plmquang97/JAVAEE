@@ -6,6 +6,7 @@ import com.axonactive.agileterm.entity.UserEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class UserDAOImpl implements UserDAO {
@@ -14,8 +15,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserEntity findUserByUserName(String username) {
-        return em.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username",UserEntity.class)
-                .setParameter("userName",username)
-                .getSingleResult();
+        List<UserEntity> userEntityList = em.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username",UserEntity.class)
+                .setParameter("username",username)
+                .getResultList();
+        if (!userEntityList.isEmpty())
+            return userEntityList.get(0);
+        return null;
     }
 }
