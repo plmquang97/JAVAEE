@@ -1,10 +1,8 @@
 package com.axonactive.agileterm.dao;
 
 import com.axonactive.agileterm.entity.TermEntity;
-import com.axonactive.agileterm.rest.client.model.Term;
 
 import javax.ejb.Stateless;
-import java.util.Optional;
 import java.util.List;
 
 @Stateless

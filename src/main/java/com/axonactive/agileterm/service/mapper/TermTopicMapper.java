@@ -1,7 +1,6 @@
 package com.axonactive.agileterm.service.mapper;
 
 import com.axonactive.agileterm.entity.TermTopicEntity;
-import com.axonactive.agileterm.rest.model.TermTopicDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

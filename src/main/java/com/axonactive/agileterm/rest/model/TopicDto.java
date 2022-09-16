@@ -16,6 +16,4 @@ public class TopicDto {
     private String name;
 
     private String color;
-
-
 }

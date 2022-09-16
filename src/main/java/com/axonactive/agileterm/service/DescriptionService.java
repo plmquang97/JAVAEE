@@ -1,7 +1,6 @@
 package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.DescriptionDAO;
-import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.DescriptionEntity;
 import com.axonactive.agileterm.rest.client.model.Description;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class DescriptionService {
     @Inject
     private DescriptionDAO descriptionDAO;
-    @Inject
+
     private UserService userService;
 
     public boolean descriptionListValidation(List<Description> descriptionList){

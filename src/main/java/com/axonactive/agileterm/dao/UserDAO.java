@@ -7,4 +7,5 @@ import javax.ejb.Stateless;
 @Stateless
 public interface UserDAO {
     UserEntity findUserByUserName(String userName);
+    UserEntity save(UserEntity userInput);
 }

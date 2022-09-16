@@ -12,7 +12,6 @@ import java.util.List;
 
 @Stateless
 public class TopicService {
-
     @Inject
     private TopicDAO topicDAO;
 

@@ -4,6 +4,7 @@ import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     @PersistenceContext(name = "agileterm")
     EntityManager em;
+    @Inject
+    UserDAO userDAO;
 
     @Override
     public UserEntity findUserByUserName(String username) {
@@ -21,5 +24,10 @@ public class UserDAOImpl implements UserDAO {
         if (!userEntityList.isEmpty())
             return userEntityList.get(0);
         return null;
+    }
+
+    @Override
+    public UserEntity save(UserEntity userInput) {
+        return userDAO.save(userInput);
     }
 }

@@ -36,6 +36,7 @@ public class TermService {
             throw new InputValidationException(ErrorMessage.INVALID_ID);
         }
         String decodedString = new String(Base64.getDecoder().decode(encodedId));
+        System.out.println(decodedString);
         return Integer.parseInt(decodedString.substring(decodedString.lastIndexOf('_') + 1));
     }
 
@@ -45,15 +46,15 @@ public class TermService {
 
     public TermEntity findTermByTermId(Integer id) {
         TermEntity termEntity = termDAO.findTermById(id);
-        if (termEntity == null){
-           throw new ResourceNotFoundException(ErrorMessage.TERM_NOT_FOUND);
+        if (termEntity == null) {
+            throw new ResourceNotFoundException(ErrorMessage.TERM_NOT_FOUND);
         }
         return termEntity;
     }
 
     public TermEntity save(Term term) {
         TermEntity termEntity = new TermEntity();
-        termEntity.setName(termEntity.getName());
+        termEntity.setName(term.getName());
         if (descriptionService.descriptionListValidation(term.getDescriptionList()))
             termEntity.setDescriptionEntityList(
                     descriptionService

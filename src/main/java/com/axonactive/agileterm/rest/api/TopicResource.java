@@ -13,12 +13,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 
 @Stateless
 @Path(TopicResource.PATH)
 public class TopicResource {
-    public static final String PATH = "topics";
-
+    public static final String PATH = "/topics";
     @Inject
     TopicService topicService;
 
@@ -35,10 +35,10 @@ public class TopicResource {
     }
 
     @GET
-    @Path("{TopicId}")
+    @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response findById(@PathParam("TopicId") Integer topicId) {
-        return Response.ok(topicMapper.toDto(topicService.findTopicById(topicId))).build();
+    public Response findById(@PathParam("id") Integer id) {
+        return Response.ok(topicMapper.toDto(topicService.findTopicById(id))).build();
     }
 
 
@@ -47,7 +47,7 @@ public class TopicResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response save(@Valid Topic topic) {
         TopicDto createdTopic = topicMapper.toDto(topicService.save(topic));
-        return Response.ok().entity(createdTopic).status(Response.Status.CREATED).build();
+        return Response.created(URI.create(PATH+"/"+createdTopic.getId())).entity(createdTopic).status(Response.Status.CREATED).build();
     }
 
 

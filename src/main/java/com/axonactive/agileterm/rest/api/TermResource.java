@@ -5,6 +5,7 @@ import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
 import com.axonactive.agileterm.service.mapper.TermMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
@@ -18,17 +19,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
+import java.net.URI;
 
 @Stateless
 @Path(TermResource.PATH)
 @MultipartConfig(fileSizeThreshold=1024*1024*10, // 10MB
         maxRequestSize=1024*1024*10)// 10MB
+@Slf4j
 public class TermResource {
     public static final String PATH = "/terms";
 
     @Inject
     private TermService termService;
-
     @Inject
     private TermMapper termMapper;
 
@@ -47,6 +49,7 @@ public class TermResource {
     @Produces({MediaType.APPLICATION_JSON})
     @JsonbDateFormat
     public Response findTermById(@PathParam(value = "id") Integer id) {
+        log.info("Find by id");
         return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
     }
 
@@ -62,7 +65,7 @@ public class TermResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response save(@Valid Term term) {
         TermDto createdTerm = termMapper.toDto(termService.save(term));
-        return Response.ok(createdTerm).status(Response.Status.CREATED).build();
+        return Response.created(URI.create(PATH+"/"+createdTerm.getEncodedId())).entity(createdTerm).build();
     }
 
     @PUT
@@ -70,14 +73,16 @@ public class TermResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("id") String encodeId, Term term) {
-        return Response.ok(termService.update(encodeId, term)).build();
+        return Response.ok(termMapper.toDto(termService.update(encodeId, term))).build();
     }
 
 
     @GET
     @Path("{encodedTermId}/details")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
-        return Response.ok(termService.findTermDetailById(encodedId)).build();
+        log.info("Find by encode id");
+        return Response.ok(termMapper.toDto(termService.findTermDetailById(encodedId))).build();
     }
 
     @POST
