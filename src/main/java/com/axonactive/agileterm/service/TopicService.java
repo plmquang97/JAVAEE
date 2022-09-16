@@ -23,13 +23,20 @@ public class TopicService {
     public TopicEntity findTopicById(Integer topicId) {
         TopicEntity topicEntity = topicDAO.findById(topicId);
         if (topicEntity == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Topic not found");
         }
         return topicEntity;
     }
 
     public TopicEntity save(Topic topicInput) {
-        return topicDAO.save(topicInput);
+        TopicEntity topicEntity = new TopicEntity();
+        System.out.println(topicInput);
+        topicEntity.setName(topicInput.getName());
+        topicEntity.setColor(topicInput.getColor());
+        System.out.println(topicEntity);
+        TopicEntity savedTopic = topicDAO.save(topicEntity);
+        System.out.println(savedTopic);
+        return savedTopic;
     }
 
 

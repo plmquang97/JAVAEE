@@ -23,12 +23,8 @@ public class TopicDAOImpl implements TopicDAO {
     }
 
     @Override
-    public TopicEntity save(Topic topic) {
-        TopicEntity topicEntity = new TopicEntity();
-        topicEntity.setName(topic.getName());
-        topicEntity.setColor(topic.getColor());
-        topicEntity = this.em.merge(topicEntity);
-        return topicEntity;
+    public TopicEntity save(TopicEntity topicEntity) {
+            return this.em.merge(topicEntity);
     }
 
     @Override

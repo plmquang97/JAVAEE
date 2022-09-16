@@ -62,7 +62,7 @@ public class TopicServiceTest {
 
     @Test
     void testFindById_shouldThrowResourceNotFoundException_whenInput3() {
-        when(topicDAO.findById(100)).thenThrow(new ResourceNotFoundException());
+        when(topicDAO.findById(100)).thenThrow(new ResourceNotFoundException("Topic not found"));
 
         assertThrows(ResourceNotFoundException.class, () -> {
             topicService.findTopicById(100);
@@ -73,12 +73,17 @@ public class TopicServiceTest {
     @Test
     void testSave_sizeShouldIncrease_whenSaveNewRequest() {
         TopicEntity topic3 = new TopicEntity(3, "Clean code", "#112233");
+        TopicEntity topic3ToBeSave = new TopicEntity();
+        topic3ToBeSave.setName("Clean code");
+        topic3ToBeSave.setColor("#112233");
         Topic topicRequest3 = new Topic("Clean code", "#112233");
-        when(topicDAO.save(topicRequest3)).thenReturn(topic3);
+
+//        when(topicDAO.save(topic3ToBeSave)).thenReturn(topic3);
+        lenient().doReturn(topic3).when(topicDAO).save(topic3ToBeSave);
 
         TopicEntity expectedTopic = topicService.save(topicRequest3);
 
-        assertEquals(expectedTopic.getName(), topicRequest3.getName());
+        assertEquals(expectedTopic.getName(), topic3.getName());
 
     }
 

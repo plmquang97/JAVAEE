@@ -8,8 +8,7 @@ import java.util.List;
 public interface TopicDAO {
     List<TopicEntity> findAll();
 
-    TopicEntity save(Topic topic);
-
+    TopicEntity save(TopicEntity topicEntity);
 
     TopicEntity findById(Integer topicId);
 
