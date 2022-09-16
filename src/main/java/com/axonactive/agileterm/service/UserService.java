@@ -15,7 +15,7 @@ public class UserService {
     public UserEntity findUserEntityByUserName(String username){
         UserEntity userEntity = userDAO.findUserByUserName(username);
         if (userEntity == null){
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("");
         }
         return userEntity;
     }

@@ -1,8 +1,7 @@
 package com.axonactive.agileterm.utility;
 
-import com.axonactive.agileterm.exception.InputValidation;
+import com.axonactive.agileterm.exception.InputValidationException;
 import com.axonactive.agileterm.service.dto.TermImportDto;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,8 +14,6 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +46,7 @@ public class ExcelUtils {
         if (isHeaderTemplateValid(firstRow)) {
             return true;
         } else {
-            throw new InputValidation(FILE_TEMPLATE_NOT_SUPPORTED);
+            throw new InputValidationException(FILE_TEMPLATE_NOT_SUPPORTED);
         }
     }
 
@@ -126,7 +123,7 @@ public class ExcelUtils {
             System.out.println("converting to xls");
             return new HSSFWorkbook(InputStreamUtils.getInputStream(inputPart));
         } else {
-            throw new InputValidation(FILE_WRONG_FORMAT_EXCEPTION);
+            throw new InputValidationException(FILE_WRONG_FORMAT_EXCEPTION);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.axonactive.agileterm.utility;
-import com.axonactive.agileterm.exception.InputValidation;
+import com.axonactive.agileterm.exception.ErrorMessage;
+import com.axonactive.agileterm.exception.InputValidationException;
 import org.apache.poi.util.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -23,7 +24,7 @@ public class InputStreamUtils {
         Map<String, List<InputPart>> uploadForm = formDataInput.getFormDataMap();
         List<InputPart> inputParts = uploadForm.get("file");
         if (Objects.isNull(inputParts)) {
-            throw new InputValidation();
+            throw new InputValidationException(ExcelUtils.FILE_WRONG_FORMAT_EXCEPTION);
         }
         return inputParts.get(0);
     }
@@ -33,7 +34,7 @@ public class InputStreamUtils {
         try (InputStream inputStream = getInputStream(inputPartUploadedFile)) {
             bytes = IOUtils.toByteArray(inputStream);
         }catch (IOException e) {
-            throw new InputValidation();
+            throw new InputValidationException(ExcelUtils.FILE_WRONG_FORMAT_EXCEPTION);
         }
         return bytes;
     }
