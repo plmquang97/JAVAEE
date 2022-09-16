@@ -62,7 +62,7 @@ public class TermResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response save(@Valid Term term) {
         TermDto createdTerm = termMapper.toDto(termService.save(term));
-        return Response.ok().entity(createdTerm).status(Response.Status.CREATED).build();
+        return Response.ok(createdTerm).status(Response.Status.CREATED).build();
     }
 
     @PUT
