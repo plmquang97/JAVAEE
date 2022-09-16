@@ -1,6 +1,5 @@
 package com.axonactive.agileterm.rest.model;
 
-import com.axonactive.agileterm.rest.client.model.Description;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +13,5 @@ public class TermDto {
     private String encodedId;
     private String name;
     private List<DescriptionDto> descriptionList;
+    private List<TopicDto> topicList;
 }

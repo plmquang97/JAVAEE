@@ -9,8 +9,12 @@ import com.axonactive.agileterm.exception.InputValidationException;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.ResponseForUploadFile;
+import com.axonactive.agileterm.rest.model.TermDto;
+import com.axonactive.agileterm.rest.model.TopicDto;
 import com.axonactive.agileterm.service.dto.RowResultDto;
 import com.axonactive.agileterm.service.dto.TermImportDto;
+import com.axonactive.agileterm.service.mapper.TermMapper;
+import com.axonactive.agileterm.service.mapper.TopicMapper;
 import com.axonactive.agileterm.utility.ExcelUtils;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
@@ -23,19 +27,27 @@ import java.util.*;
 @Stateless
 public class TermService {
     @Inject
+    private TermTopicService termTopicService;
+    @Inject
     private TermDAO termDAO;
-
     @Inject
     private DescriptionService descriptionService;
-
     @Inject
     private UserService userService;
+
+    @Inject
+    private TermMapper termMapper;
+
+    @Inject
+    private TopicMapper topicMapper;
+
 
     private Integer getDecodedId(String encodedId) {
         if (encodedId.length() < 2) {
             throw new InputValidationException(ErrorMessage.INVALID_ID);
         }
         String decodedString = new String(Base64.getDecoder().decode(encodedId));
+
         return Integer.parseInt(decodedString.substring(decodedString.lastIndexOf('_') + 1));
     }
 
@@ -45,15 +57,15 @@ public class TermService {
 
     public TermEntity findTermByTermId(Integer id) {
         TermEntity termEntity = termDAO.findTermById(id);
-        if (termEntity == null){
-           throw new ResourceNotFoundException(ErrorMessage.TERM_NOT_FOUND);
+        if (termEntity == null) {
+            throw new ResourceNotFoundException(ErrorMessage.TERM_NOT_FOUND);
         }
         return termEntity;
     }
 
     public TermEntity save(Term term) {
         TermEntity termEntity = new TermEntity();
-        termEntity.setName(termEntity.getName());
+        termEntity.setName(term.getName());
         if (descriptionService.descriptionListValidation(term.getDescriptionList()))
             termEntity.setDescriptionEntityList(
                     descriptionService
@@ -238,8 +250,12 @@ public class TermService {
                 rawDataList.get(rawDataList.size() - 1).getRowIndex() : 1;
     }
 
-    public TermEntity findTermDetailById(String encodedId) {
-        return findTermByTermId(getDecodedId(encodedId));
+    public TermDto findTermDetailById(String encodedId) {
+        Integer id = getDecodedId(encodedId);
+        List<TopicDto> topicDtoList = topicMapper.toDtos(termTopicService.findListOfTopicEntityFromTermId(id));
+        TermDto termDto = termMapper.toDto(findTermByTermId(id));
+        termDto.setTopicList(topicDtoList);
+        return termDto;
     }
 
 

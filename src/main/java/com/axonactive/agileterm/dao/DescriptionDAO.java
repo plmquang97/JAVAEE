@@ -11,3 +11,5 @@ public interface DescriptionDAO {
 
     List<DescriptionEntity> findDescriptionByTermIdAndDescriptionString(String termName, String descriptionString);
 }
+
+
