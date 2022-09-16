@@ -20,7 +20,7 @@ public class DescriptionDAOImpl implements DescriptionDAO {
 
     @Override
     public List<DescriptionEntity> findDescriptionByTermIdAndDescriptionString(String termName, String descriptionString) {
-        return em.createQuery("SELECT d FROM DescriptionEntity d WHERE LOWER(d.term.name) = LOWER(:termName) AND LOWER(d.content) = LOWER(:descriptionString)")
+        return em.createQuery("SELECT d FROM DescriptionEntity d LEFT JOIN FETCH d.userEntity u WHERE LOWER(d.term.name) = LOWER(:termName) AND LOWER(d.content) = LOWER(:descriptionString)")
                 .setParameter("termName",termName)
                 .setParameter("descriptionString",descriptionString)
                 .getResultList();
