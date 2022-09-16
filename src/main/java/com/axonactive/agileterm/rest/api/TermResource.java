@@ -1,25 +1,27 @@
 package com.axonactive.agileterm.rest.api;
 
 
-import com.axonactive.agileterm.exception.ErrorMessage;
-import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
 import com.axonactive.agileterm.service.mapper.TermMapper;
-import lombok.extern.slf4j.Slf4j;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-@Slf4j
+import java.io.IOException;
+
 @Stateless
 @Path(TermResource.PATH)
+@MultipartConfig(fileSizeThreshold=1024*1024*10, // 10MB
+        maxRequestSize=1024*1024*10)// 10MB
 public class TermResource {
     public static final String PATH = "/terms";
 
@@ -42,7 +44,8 @@ public class TermResource {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response findTermById(@PathParam(value = "id") Integer id) {return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
+    public Response findTermById(@PathParam(value = "id") Integer id) {
+        return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
     }
 
 
@@ -77,12 +80,14 @@ public class TermResource {
 //        return Response.ok(termService.findTermDetailById(encodedId));
 //    }
 
-
-    //multipartFIle??
-//    @PostMapping(value = "/upload-file", consumes = "multipart/form-data")
-//    public ResponseEntity<ResponseForUploadFile> uploadTermWithExcelFile(@RequestParam("file") MultipartFile file) throws IOException {
-//        return ResponseEntity.ok(termService.uploadTermAndDescriptionExcelFile(file));
-//    }
+    @POST
+    @Path("/upload-file")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response uploadTermWithExcelFile(MultipartFormDataInput excelFile) throws IOException {
+        System.out.println("You got to api");
+        return Response.ok(termService.uploadTermAndDescriptionExcelFile(excelFile)).build();
+    }
     //DTO?
 //    @PostMapping("existed-validate")
 //    public ResponseEntity<Void> termExistValidate(@RequestBody TermName userInput) {
