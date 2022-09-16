@@ -2,7 +2,8 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.TermDAO;
 import com.axonactive.agileterm.entity.TermEntity;
-import com.axonactive.agileterm.exception.InputValidation;
+import com.axonactive.agileterm.exception.ErrorMessage;
+import com.axonactive.agileterm.exception.InputValidationException;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Term;
 
@@ -21,7 +22,7 @@ public class TermService {
 
     private Integer getDecodedId(String encodedId) {
         if (encodedId.length() < 2) {
-            throw new InputValidation();
+            throw new InputValidationException("");
         }
         String decodedString = new String(Base64.getDecoder().decode(encodedId));
         return Integer.parseInt(decodedString.substring(decodedString.lastIndexOf('_') + 1));
@@ -34,7 +35,7 @@ public class TermService {
     public TermEntity findTermByTermId(Integer id) {
         TermEntity termEntity = termDAO.findTermById(id);
         if (termEntity == null) {
-            throw new ResourceNotFoundException("");
+            throw new ResourceNotFoundException(ErrorMessage.TERM_NOT_FOUND);
         }
         return termEntity;
     }

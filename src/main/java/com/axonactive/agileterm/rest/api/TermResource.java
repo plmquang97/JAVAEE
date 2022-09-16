@@ -1,6 +1,8 @@
 package com.axonactive.agileterm.rest.api;
 
 
+import com.axonactive.agileterm.exception.ErrorMessage;
+import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
@@ -34,7 +36,6 @@ public class TermResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
-        log.error("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         return Response.ok(termMapper.toDtos(termService.getAll())).build();
     }
 
