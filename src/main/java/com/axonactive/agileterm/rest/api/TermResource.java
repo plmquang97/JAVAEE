@@ -9,6 +9,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -44,6 +45,7 @@ public class TermResource {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
+    @JsonbDateFormat
     public Response findTermById(@PathParam(value = "id") Integer id) {
         return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
     }

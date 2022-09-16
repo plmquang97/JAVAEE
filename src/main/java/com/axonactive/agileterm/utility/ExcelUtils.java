@@ -113,14 +113,12 @@ public class ExcelUtils {
 
     public static Workbook convertToWorkBook(MultipartFormDataInput excelFile) throws IOException {
         InputPart inputPart = InputStreamUtils.getInputPart(excelFile);
+
         String fileExtension = getFileExtension(InputStreamUtils.getFileName(inputPart));
 
-        System.out.println(""+fileExtension);
         if (XLSX.equalsIgnoreCase(fileExtension)) {
-            System.out.println("converting to xlsx");
             return new XSSFWorkbook(InputStreamUtils.getInputStream(inputPart));
         } else if (XLS.equalsIgnoreCase(fileExtension)) {
-            System.out.println("converting to xls");
             return new HSSFWorkbook(InputStreamUtils.getInputStream(inputPart));
         } else {
             throw new InputValidationException(FILE_WRONG_FORMAT_EXCEPTION);

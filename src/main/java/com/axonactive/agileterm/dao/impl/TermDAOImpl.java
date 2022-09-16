@@ -16,14 +16,15 @@ public class TermDAOImpl implements TermDAO {
     @Override
     public List<TermEntity> getAll() {
         return em.createQuery(
-                        "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d")
+                        "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d LEFT JOIN FETCH d.userEntity u ")
                 .getResultList();
     }
 
     @Override
     public TermEntity findTermById(Integer id) {
         List<TermEntity> termEntityList = em.createQuery(
-                        "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d WHERE t.id = :id", TermEntity.class)
+                        "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d " +
+                                "LEFT JOIN FETCH d.userEntity u WHERE t.id = :id", TermEntity.class)
                 .setParameter("id", id)
                 .getResultList();
         if (!termEntityList.isEmpty())
@@ -39,7 +40,8 @@ public class TermDAOImpl implements TermDAO {
     @Override
     public TermEntity findTermByTermName(String name) {
         List<TermEntity> termEntityList = em.createQuery(
-                        "SELECT t FROM TermEntity t WHERE LOWER(t.name) = LOWER(:inputName)", TermEntity.class)
+                        "SELECT DISTINCT t FROM TermEntity t LEFT JOIN FETCH t.descriptionEntityList d " +
+                                "LEFT JOIN FETCH d.userEntity u WHERE LOWER(t.name) = LOWER(:inputName)", TermEntity.class)
                 .setParameter("inputName", name)
                 .getResultList();
         if (!termEntityList.isEmpty())

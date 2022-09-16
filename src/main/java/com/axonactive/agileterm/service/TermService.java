@@ -80,7 +80,7 @@ public class TermService {
 
 
     public ResponseForUploadFile uploadTermAndDescriptionExcelFile(MultipartFormDataInput excelFile) throws IOException {
-        System.out.println("You got to service");
+
 
         List<TermImportDto> uploadedRawDataTermAndDescriptionList = ExcelUtils.getListOfTermAndDescriptionImportDto(excelFile);
 
@@ -187,9 +187,7 @@ public class TermService {
     }
 
     public boolean isTermNotExistedInDatabase(String termName) {
-        System.out.println("finding term entity");
         TermEntity term = findTermByTermName(termName);
-        System.out.println("finding term entity" + term + "===========================================");
         return term == null;
 
     }
