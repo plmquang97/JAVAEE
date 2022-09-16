@@ -9,6 +9,7 @@ import com.axonactive.agileterm.service.AuthenticationService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Stateless
 public class JwtUtils {
 
-    @EJB
+    @Inject
     private AuthenticationService authenticationService;
 
     public Token generateJwtToken(UserEntity user) throws Exception{
@@ -38,7 +39,7 @@ public class JwtUtils {
                         .withExpiresAt(new Date(System.currentTimeMillis() + timeToLive))
                         .sign(algorithm);
 
-            } catch (IllegalArgumentException | JWTCreationException | UnsupportedEncodingException e) {
+            } catch (IllegalArgumentException | JWTCreationException  e) {
                 //may add some log here
                 System.out.println(e.getMessage());
 

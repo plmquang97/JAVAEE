@@ -4,16 +4,23 @@ import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 
 @Stateless
 public class UserDAOImpl implements UserDAO {
 
-    @PersistenceContext(name ="agileterm")
+    @PersistenceContext(name = "agileterm")
     EntityManager em;
+
+    @Override
+    public UserEntity findUserByUserName(String username) {
+        return em.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username",UserEntity.class)
+                .setParameter("userName",username)
+                .getSingleResult();
+    }
 
     @Override
     public Long countUsersWithEmail(String email) {
@@ -40,6 +47,8 @@ public class UserDAOImpl implements UserDAO {
                 .getSingleResult();
     }
 
+
+
     @Override
     public List<UserEntity> getAll() {
         return em.createQuery(
@@ -47,4 +56,7 @@ public class UserDAOImpl implements UserDAO {
                 .getResultList();
     }
 
+    public UserEntity save(UserEntity userInput) {
+        return this.em.merge(userInput);
+    }
 }

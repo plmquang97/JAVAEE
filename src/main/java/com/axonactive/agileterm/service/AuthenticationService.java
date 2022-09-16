@@ -1,6 +1,7 @@
 package com.axonactive.agileterm.service;
 
 
+import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
 
 import javax.ejb.Stateless;
@@ -8,9 +9,8 @@ import javax.inject.Inject;
 
 @Stateless
 public class AuthenticationService {
-
     @Inject
-    UserService userService;
+    private UserService userService;
 
     public void checkAuthentication(String username, String password) throws Exception {
 

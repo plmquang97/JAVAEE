@@ -7,6 +7,7 @@ import com.axonactive.agileterm.utility.JwtUtils;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,8 +21,8 @@ public class JwtAuthenticationResource {
 
     public static final String PATH = "/auth";
 
-    @EJB
-    JwtUtils jwtUtils;
+    @Inject
+    private JwtUtils jwtUtils;
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

@@ -2,6 +2,7 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
+import com.axonactive.agileterm.exception.ResourceNotFoundException;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -28,4 +29,13 @@ public class UserService {
     public UserEntity findByUserName(String userName){
         return userDAO.findByUserName(userName);
     }
+
+    public UserEntity findUserEntityByUserName(String username){
+        UserEntity userEntity = userDAO.findUserByUserName(username);
+        if (userEntity == null){
+            throw new ResourceNotFoundException();
+        }
+        return userEntity;
+    }
+
 }

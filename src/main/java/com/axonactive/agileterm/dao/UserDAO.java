@@ -17,5 +17,6 @@ public interface UserDAO {
 
     List<UserEntity> getAll();
 
-//   UserEntity findByVerificationTokenEntityVerificationCode(String code);
+    UserEntity findUserByUserName(String userName);
+    UserEntity save(UserEntity userInput);
 }
