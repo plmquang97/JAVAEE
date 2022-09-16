@@ -1,9 +1,11 @@
 package com.axonactive.agileterm.rest.api;
 
 
+import com.axonactive.agileterm.entity.TermEntity;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
+import com.axonactive.agileterm.service.TermTopicService;
 import com.axonactive.agileterm.service.mapper.TermMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -34,8 +36,13 @@ public class TermResource {
     @Inject
     private TermMapper termMapper;
 
+    @Inject
+    private TermTopicService termTopicService;
+
     @Context
     private UriInfo uriInfo;
+
+
 
 
     @GET
@@ -43,21 +50,6 @@ public class TermResource {
     public Response getAll() {
         return Response.ok(termMapper.toDtos(termService.getAll())).build();
     }
-
-    @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    @JsonbDateFormat
-    public Response findTermById(@PathParam(value = "id") Integer id) {
-        log.info("Find by id");
-        return Response.ok(termMapper.toDto(termService.findTermByTermId(id))).build();
-    }
-
-
-//    @GetMapping("/{id}/topic")
-//    public ResponseEntity<List<TopicDto>> findTopicByTermId(@PathVariable(value = "id") Integer id) {
-//        return ResponseEntity.ok(termTopicService.findTopicByTermId(id));
-//    }
 
 
     @POST
@@ -81,8 +73,7 @@ public class TermResource {
     @Path("{encodedTermId}/details")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTermDetailById(@PathParam("encodedTermId") String encodedId) {
-        log.info("Find by encode id");
-        return Response.ok(termMapper.toDto(termService.findTermDetailById(encodedId))).build();
+        return Response.ok(termService.findTermDetailById(encodedId)).build();
     }
 
     @POST
