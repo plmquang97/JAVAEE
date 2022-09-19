@@ -4,15 +4,12 @@ import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.exception.ErrorMessage;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
-import com.axonactive.agileterm.rest.client.model.Topic;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({MockitoExtension.class})
 public class TopicServiceTest {
