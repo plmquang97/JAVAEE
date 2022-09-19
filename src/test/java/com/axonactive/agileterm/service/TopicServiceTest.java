@@ -70,25 +70,17 @@ public class TopicServiceTest {
 
     }
 
-//    @Test
-//    void testSave_sizeShouldIncrease_whenSaveNewRequest() {
-//        TopicEntity topic3 = new TopicEntity(3, "hihi", "#1234567");
-//        TopicEntity topic3AfterSave = new TopicEntity(3, "Clean code", "#112233");
-//
-//        Topic topicRequest3 = new Topic("Clean code hok", "#1122222233");
-//
-////        Mockito.when(topicDAO.save(topic3)).thenReturn(topic3AfterSave);
-////        Mockito.lenient().doReturn(topic3AfterSave).when(topicDAO.save(topic3));
-////        lenient().doReturn(topic3AfterSave).when(topicDAO).save(topic3);
-////
-//        BDDMockito.lenient().when(topicDAO.save(topic3)).thenReturn(topic3AfterSave);
-////        TopicEntity expectedTopic = topicService.save(topicRequest3);
-//        TopicEntity serviceTopic = topicService.save(topicRequest3);
-//
-//
-//        assertEquals(topicDAO.findById(1), topic3AfterSave.getName());
-//
-//    }
+    @Test
+    void testSave_sizeShouldIncrease_whenSaveNewRequest() {
+        TopicEntity topic3ToBeReturn = new TopicEntity(3, "Clean", "#112233");
+        Topic topicRequest3 = new Topic("Clean", "#112233");
+        when(topicDAO.save(any(TopicEntity.class))).thenReturn(topic3ToBeReturn);
+
+        TopicEntity expectedTopic = topicService.save(topicRequest3);
+
+        assertEquals(expectedTopic.getName(), topic3ToBeReturn.getName());
+
+    }
 
 
 }
