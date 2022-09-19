@@ -12,10 +12,11 @@ public interface UserDAO {
 
     Long countUsersWithUsername(String username);
 
-
     List<UserEntity> getAll();
 
     UserEntity findUserByUserName(String userName);
+
     UserEntity save(UserEntity userEntity);
+
 
 }
