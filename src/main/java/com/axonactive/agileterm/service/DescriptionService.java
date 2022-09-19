@@ -2,7 +2,6 @@ package com.axonactive.agileterm.service;
 
 import com.axonactive.agileterm.dao.DescriptionDAO;
 import com.axonactive.agileterm.entity.DescriptionEntity;
-import com.axonactive.agileterm.exception.ErrorMessage;
 import com.axonactive.agileterm.rest.client.model.Description;
 
 import javax.ejb.Stateless;

@@ -1,7 +1,6 @@
 package com.axonactive.agileterm.rest.api;
 
 
-import com.axonactive.agileterm.entity.TermEntity;
 import com.axonactive.agileterm.rest.client.model.Term;
 import com.axonactive.agileterm.rest.model.TermDto;
 import com.axonactive.agileterm.service.TermService;
@@ -12,7 +11,6 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.bind.annotation.JsonbDateFormat;
 import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import javax.ws.rs.*;

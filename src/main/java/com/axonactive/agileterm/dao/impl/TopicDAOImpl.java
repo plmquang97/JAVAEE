@@ -2,7 +2,6 @@ package com.axonactive.agileterm.dao.impl;
 
 import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.entity.TopicEntity;
-import com.axonactive.agileterm.rest.client.model.Topic;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

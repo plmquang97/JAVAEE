@@ -1,10 +1,7 @@
 package com.axonactive.agileterm.service;
 
 
-import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
-import com.axonactive.agileterm.exception.ErrorMessage;
-import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.ejb.Stateless;

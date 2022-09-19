@@ -1,10 +1,9 @@
 package com.axonactive.agileterm.rest.api;
 
 
-import com.axonactive.agileterm.entity.UserEntity;
 import com.axonactive.agileterm.rest.client.model.JwtRequest;
 import com.axonactive.agileterm.rest.client.model.User;
-import com.axonactive.agileterm.rest.model.Token;
+import com.axonactive.agileterm.rest.model.JwtResponse;
 import com.axonactive.agileterm.rest.model.UserDto;
 import com.axonactive.agileterm.service.UserService;
 import com.axonactive.agileterm.utility.JwtUtils;
@@ -12,7 +11,10 @@ import com.axonactive.agileterm.utility.JwtUtils;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,14 +39,26 @@ public class AuthResource {
         return Response.ok().entity(userDto).status(Response.Status.CREATED).build();
     }
 
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Token getAuthenticationToken(@Valid JwtRequest jwtRequest){
-           Token token = null;
+    public String getAuthenticationToken(@Valid JwtRequest jwtRequest){
+           String token = null;
 
-            token = jwtUtils.generateJwtToken(jwtRequest);
+           //this check authen user and generate token
+            token = jwtUtils.generateToken(jwtRequest);
 
         return token;
+    }
+
+    //login
+    @POST
+    @Path("login")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getJwtResponse(@Valid JwtRequest jwtRequest){
+        JwtResponse jwtResponse = jwtUtils.generateJwtResponse(jwtRequest);
+       return Response.ok(jwtResponse).build();
     }
 }

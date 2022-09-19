@@ -2,7 +2,6 @@ package com.axonactive.agileterm.dao.impl;
 
 import com.axonactive.agileterm.dao.UserDAO;
 import com.axonactive.agileterm.entity.UserEntity;
-import com.axonactive.agileterm.rest.client.model.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

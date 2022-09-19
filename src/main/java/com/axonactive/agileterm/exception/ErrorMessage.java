@@ -3,7 +3,6 @@ package com.axonactive.agileterm.exception;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 public class ErrorMessage {
   static InputStream input = ErrorMessage.class.getClassLoader().getResourceAsStream("message.properties");
