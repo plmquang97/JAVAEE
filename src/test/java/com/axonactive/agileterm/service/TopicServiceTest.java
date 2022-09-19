@@ -4,7 +4,6 @@ import com.axonactive.agileterm.dao.TopicDAO;
 import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.exception.ErrorMessage;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
-import com.axonactive.agileterm.rest.client.model.Topic;
 import com.axonactive.agileterm.service.mapper.TopicMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({MockitoExtension.class})
 public class TopicServiceTest {
@@ -73,13 +72,13 @@ public class TopicServiceTest {
 
     @Test
     void testSave_sizeShouldIncrease_whenSaveNewRequest() {
-        TopicEntity topic3 = new TopicEntity(3, "Clean code", "#112233");
-        Topic topicRequest3 = new Topic("Clean code", "#112233");
-        when(topicDAO.save(topicRequest3)).thenReturn(topic3);
+        TopicEntity topic3ToBeReturn = new TopicEntity(3, "Clean", "#112233");
+        Topic topicRequest3 = new Topic("Clean", "#112233");
+        when(topicDAO.save(any(TopicEntity.class))).thenReturn(topic3ToBeReturn);
 
         TopicEntity expectedTopic = topicService.save(topicRequest3);
 
-        assertEquals(expectedTopic.getName(), topicRequest3.getName());
+        assertEquals(expectedTopic.getName(), topic3ToBeReturn.getName());
 
     }
 

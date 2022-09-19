@@ -18,4 +18,5 @@ public interface UserDAO {
 
     UserEntity findUserByUserName(String userName);
     UserEntity save(UserEntity userEntity);
+
 }

@@ -15,6 +15,8 @@ public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext(name = "agileterm")
     EntityManager em;
+    @Inject
+    UserDAO userDAO;
 
     @Override
     public UserEntity findUserByUserName(String username) {

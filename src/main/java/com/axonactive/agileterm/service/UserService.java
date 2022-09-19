@@ -7,6 +7,7 @@ import com.axonactive.agileterm.entity.UserEntity;
 import com.axonactive.agileterm.entity.UserRoleAssignmentEntity;
 import com.axonactive.agileterm.entity.VerificationTokenEntity;
 import com.axonactive.agileterm.exception.ErrorMessage;
+import com.axonactive.agileterm.exception.ErrorMessage;
 import com.axonactive.agileterm.exception.ResourceNotFoundException;
 import com.axonactive.agileterm.rest.client.model.User;
 import com.axonactive.agileterm.rest.model.UserDto;

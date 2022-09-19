@@ -5,12 +5,6 @@ import com.axonactive.agileterm.entity.TopicEntity;
 import com.axonactive.agileterm.rest.client.model.Topic;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import com.axonactive.agileterm.entity.TopicEntity;
-import com.axonactive.agileterm.rest.client.model.Topic;
-import com.axonactive.agileterm.dao.TopicDAO;
-
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,9 +15,6 @@ public class TopicDAOImpl implements TopicDAO {
     @PersistenceContext(name = "agileterm")
     EntityManager em;
 
-    @Inject
-    TopicDAO topicDAO;
-
 
     @Override
     public List<TopicEntity> findAll() {
@@ -32,12 +23,8 @@ public class TopicDAOImpl implements TopicDAO {
     }
 
     @Override
-    public TopicEntity save(Topic topic) {
-        TopicEntity topicEntity = new TopicEntity();
-        topicEntity.setName(topic.getName());
-        topicEntity.setColor(topic.getColor());
-        topicEntity = this.em.merge(topicEntity);
-        return topicEntity;
+    public TopicEntity save(TopicEntity topicEntity) {
+            return this.em.merge(topicEntity);
     }
 
     @Override

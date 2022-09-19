@@ -13,4 +13,5 @@ public class TermDto {
     private String encodedId;
     private String name;
     private List<DescriptionDto> descriptionList;
+    private List<TopicDto> topicList;
 }
